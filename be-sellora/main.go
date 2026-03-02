@@ -3,6 +3,7 @@ package main
 import (
 	"be-sellora/config"
 	"be-sellora/database"
+	"be-sellora/database/seeders"
 
 	"github.com/gin-gonic/gin"
 )
@@ -14,6 +15,9 @@ func main() {
 
 	// inisialisasi database
 	database.InitDB()
+
+	// run seeders
+	seeders.Seed()
 
 	// Inisialisasi route Gin
 	router := gin.Default()

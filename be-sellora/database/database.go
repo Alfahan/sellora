@@ -2,6 +2,7 @@ package database
 
 import (
 	"be-sellora/config"
+	"be-sellora/models"
 	"fmt"
 	"log"
 
@@ -31,5 +32,29 @@ func InitDB() {
 	if err != nil {
 		log.Fatal("Failed to connect to database:", err)
 	}
+
 	fmt.Println("Database connected successfully!")
+
+	// Auto Migrate Models
+	err = DB.AutoMigrate(
+		&models.User{},
+		&models.Role{},
+		&models.Permission{},
+		&models.Category{},
+		&models.Slider{},
+		&models.Product{},
+		&models.ProductImage{},
+		&models.Review{},
+		&models.Address{},
+		&models.Order{},
+		&models.OrderItem{},
+		&models.Cart{},
+		&models.Payment{},
+	)
+
+	if err != nil {
+		log.Fatal("Failed to migrate database:", err)
+	}
+
+	fmt.Println("Database migrated successfully!")
 }

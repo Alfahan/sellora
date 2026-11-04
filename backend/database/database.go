@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"sellora/backend/config"
+	"sellora/backend/models"
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -34,4 +35,27 @@ func InitDB() {
 	}
 
 	fmt.Println("Database connected successfully!")
+
+	// **Auto Migrate Models**
+	err = DB.AutoMigrate(
+		&models.User{},
+		&models.Role{},
+		&models.Permission{},
+		&models.Category{},
+		&models.Slider{},
+		&models.Product{},
+		&models.ProductImage{},
+		&models.Review{},
+		&models.Address{},
+		&models.Order{},
+		&models.OrderItem{},
+		&models.Cart{},
+		&models.Payment{},
+	)
+	if err != nil {
+		log.Fatal("Failed to migrate database:", err)
+	}
+
+	fmt.Println("Database migrated successfully!")
+
 }

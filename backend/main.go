@@ -2,6 +2,7 @@ package main
 
 import (
 	"sellora/backend/config"
+	"sellora/backend/database"
 
 	"github.com/gin-gonic/gin"
 )
@@ -9,6 +10,9 @@ import (
 func main() {
 	// Load config .env
 	config.LoadEnv()
+
+	// inisialisasi database
+	database.InitDB()
 
 	// Inisialisasi Gin
 	router := gin.Default()

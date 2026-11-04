@@ -1,20 +1,25 @@
 package main
 
-import "github.com/gin-gonic/gin"
+import (
+	"sellora/backend/config"
+
+	"github.com/gin-gonic/gin"
+)
 
 func main() {
-	// Inisialisasi router Gin
+	// Load config .env
+	config.LoadEnv()
+
+	// Inisialisasi Gin
 	router := gin.Default()
 
-	// Membuat endpoint dengan method GET
+	// Membuat route dengan method GET
 	router.GET("/", func(c *gin.Context) {
-
-		// Mengirim response dalam format JSON
-		c.JSON(200, gin.H{
-			"message": "Hello World!",
-		})
+		// return response JSON
+		c.JSON(200, gin.H{"message": "Hello World!!"})
 	})
 
-	// Menjalankan server pada port 3000
-	router.Run(":3000")
+	// Menjalankan server berdasarkan config
+	router.Run(":" + config.GetEnv("APP_PORT", "3000"))
+
 }
